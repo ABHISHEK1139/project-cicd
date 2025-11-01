@@ -1,0 +1,13 @@
+# Build outputs
+car-rental-system-backend-master/target/
+car-rental-system-backend-master/.mvn/wrapper/maven-wrapper.jar
+
+# Node modules and build artifacts
+car-rental-system-frontend-master/node_modules/
+car-rental-system-frontend-master/build/
+
+# Environment files and local overrides
+.env
+**/.env.local
+**/.DS_Store
+desktop.ini
