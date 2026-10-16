@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../api/baseUrl";
 
 const AddDrivingLicense = () => {
   const user = JSON.parse(sessionStorage.getItem("active-customer"));
@@ -45,7 +46,7 @@ const AddDrivingLicense = () => {
 
     axios
       .post(
-        "http://localhost:8080/api/user/add/driving-licence",
+        API_BASE_URL + "/api/user/add/driving-licence",
         formData
         // , {
         //   headers: {

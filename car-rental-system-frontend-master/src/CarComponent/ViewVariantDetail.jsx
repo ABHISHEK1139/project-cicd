@@ -10,6 +10,7 @@ import model from "../images/model.png";
 import year from "../images/year.png";
 import ac from "../images/ac.png";
 import rent from "../images/rent.png";
+import { API_BASE_URL } from "../api/baseUrl";
 
 const ViewVariantDetail = () => {
   const { variantId } = useParams();
@@ -36,7 +37,7 @@ const ViewVariantDetail = () => {
 
   const retrieveVariant = async () => {
     const response = await axios.get(
-      "http://localhost:8080/api/variant/fetch?variantId=" + variantId
+      API_BASE_URL + "/api/variant/fetch?variantId=" + variantId
     );
     console.log(response.data);
     return response.data;
@@ -66,7 +67,7 @@ const ViewVariantDetail = () => {
     } else {
       booking.customerId = customer.id;
       booking.vehicleId = variantId;
-      fetch("http://localhost:8080/api/booking/add", {
+      fetch(API_BASE_URL + "/api/booking/add", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -130,7 +131,7 @@ const ViewVariantDetail = () => {
               {/* Left side - Variant */}
               <div className="col-md-4">
                 <img
-                  src={"http://localhost:8080/api/variant/" + variant.image}
+                  src={API_BASE_URL + "/api/variant/" + variant.image}
                   className="card-img-top rounded img-fluid"
                   alt="Company Logo"
                   style={{

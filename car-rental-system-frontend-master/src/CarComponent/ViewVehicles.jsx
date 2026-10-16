@@ -3,6 +3,7 @@ import axios from "axios";
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
+import { API_BASE_URL } from "../api/baseUrl";
 
 const ViewVehicles = () => {
   const location = useLocation();
@@ -28,7 +29,7 @@ const ViewVehicles = () => {
 
   const retrieveVehiclesByVariant = async () => {
     const response = await axios.get(
-      "http://localhost:8080/api/vehicle/fetch/variant-wise?variantId=" +
+      API_BASE_URL + "/api/vehicle/fetch/variant-wise?variantId=" +
         variant.id
     );
     return response.data;
@@ -57,7 +58,7 @@ const ViewVehicles = () => {
         progress: undefined,
       });
     } else {
-      fetch("http://localhost:8080/api/vehicle/add", {
+      fetch(API_BASE_URL + "/api/vehicle/add", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -117,7 +118,7 @@ const ViewVehicles = () => {
   };
 
   const deleteVehicle = (vehicleId, e) => {
-    fetch("http://localhost:8080/api/vehicle/delete?vehicleId=" + vehicleId, {
+    fetch(API_BASE_URL + "/api/vehicle/delete?vehicleId=" + vehicleId, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -181,7 +182,7 @@ const ViewVehicles = () => {
         <div class="col-sm-4 mt-2">
           <div class="card form-card custom-bg ">
             <img
-              src={"http://localhost:8080/api/variant/" + variant.image}
+              src={API_BASE_URL + "/api/variant/" + variant.image}
               className="card-img-top rounded img-fluid"
               alt="variant img"
             />

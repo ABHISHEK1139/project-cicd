@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../api/baseUrl";
 
 const ViewAllCustomers = () => {
   let navigate = useNavigate();
@@ -22,7 +23,7 @@ const ViewAllCustomers = () => {
 
   const retrieveAllUser = async () => {
     const response = await axios.get(
-      "http://localhost:8080/api/user/fetch/role-wise?role=Customer",
+      API_BASE_URL + "/api/user/fetch/role-wise?role=Customer",
       {
         headers: {
           //   Authorization: "Bearer " + admin_jwtToken, // Replace with your actual JWT token

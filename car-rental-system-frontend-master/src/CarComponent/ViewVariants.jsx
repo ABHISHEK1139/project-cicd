@@ -3,6 +3,7 @@ import axios from "axios";
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../api/baseUrl";
 
 const ViewVariants = () => {
   const [variants, setVariants] = useState([]);
@@ -12,7 +13,7 @@ const ViewVariants = () => {
 
   const retrieveAllVariant = async () => {
     const response = await axios.get(
-      "http://localhost:8080/api/variant/fetch/all"
+      API_BASE_URL + "/api/variant/fetch/all"
     );
     return response.data;
   };
@@ -28,7 +29,7 @@ const ViewVariants = () => {
   }, []);
 
   const deleteVariant = (variantId, e) => {
-    fetch("http://localhost:8080/api/variant/delete?variantId=" + variantId, {
+    fetch(API_BASE_URL + "/api/variant/delete?variantId=" + variantId, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -140,7 +141,7 @@ const ViewVariants = () => {
                       <td>
                         <img
                           src={
-                            "http://localhost:8080/api/variant/" + variant.image
+                            API_BASE_URL + "/api/variant/" + variant.image
                           }
                           class="img-fluid"
                           alt="car_pic"

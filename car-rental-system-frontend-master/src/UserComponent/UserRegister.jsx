@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../api/baseUrl";
 
 const UserRegister = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const UserRegister = () => {
 
     let jwtToken;
 
-    fetch("http://localhost:8080/api/user/register", {
+    fetch(API_BASE_URL + "/api/user/register", {
       method: "POST",
       headers: {
         Accept: "application/json",

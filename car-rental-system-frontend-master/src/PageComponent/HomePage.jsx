@@ -5,6 +5,7 @@ import Carousel from "./Carousel";
 import Footer from "../NavbarComponent/Footer";
 import { useNavigate } from "react-router-dom";
 import CarCard from "../CarComponent/CarCard";
+import { API_BASE_URL } from "../api/baseUrl";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -18,21 +19,21 @@ const HomePage = () => {
 
   const retrieveAllCompany = async () => {
     const response = await axios.get(
-      "http://localhost:8080/api/company/fetch/all"
+      API_BASE_URL + "/api/company/fetch/all"
     );
     return response.data;
   };
 
   const retrieveAllVariant = async () => {
     const response = await axios.get(
-      "http://localhost:8080/api/variant/fetch/all"
+      API_BASE_URL + "/api/variant/fetch/all"
     );
     return response.data;
   };
 
   const retrieveAllVariantByCompanyId = async () => {
     const response = await axios.get(
-      "http://localhost:8080/api/variant/fetch/company-wise?companyId=" +
+      API_BASE_URL + "/api/variant/fetch/company-wise?companyId=" +
         companyId
     );
     return response.data;

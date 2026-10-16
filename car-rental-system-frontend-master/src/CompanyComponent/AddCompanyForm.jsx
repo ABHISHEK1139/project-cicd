@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../api/baseUrl";
 
 const AddCompanyForm = () => {
   let navigate = useNavigate();
@@ -16,7 +17,7 @@ const AddCompanyForm = () => {
   };
 
   const addCompany = (e) => {
-    fetch("http://localhost:8080/api/company/add", {
+    fetch(API_BASE_URL + "/api/company/add", {
       method: "POST",
       headers: {
         Accept: "application/json",

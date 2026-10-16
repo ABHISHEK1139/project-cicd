@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../api/baseUrl";
 
 const UserProfile = () => {
   const location = useLocation();
@@ -19,7 +20,7 @@ const UserProfile = () => {
 
   const retrieveUser = async () => {
     const response = await axios.get(
-      "http://localhost:8080/api/user/fetch/user-id?userId=" + customer.id
+      API_BASE_URL + "/api/user/fetch/user-id?userId=" + customer.id
     );
     return response.data;
   };
@@ -108,7 +109,7 @@ const UserProfile = () => {
                       <div class="d-flex aligns-items-center justify-content-center mt-3">
                         <img
                           src={
-                            "http://localhost:8080/api/user/" +
+                            API_BASE_URL + "/api/user/" +
                             user.license.licensePic
                           }
                           className="card-img-top rounded img-fluid"
