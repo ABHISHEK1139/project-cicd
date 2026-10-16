@@ -4,6 +4,7 @@ import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
+import { API_BASE_URL } from "../api/baseUrl";
 
 const MyBooking = () => {
   const [bookings, setBookings] = useState([]);
@@ -15,7 +16,7 @@ const MyBooking = () => {
 
   const retrieveAllBookings = async () => {
     const response = await axios.get(
-      "http://localhost:8080/api/booking/fetch/customer-wise?customerId=" +
+      API_BASE_URL + "/api/booking/fetch/customer-wise?customerId=" +
         user.id
     );
     return response.data;
@@ -57,7 +58,7 @@ const MyBooking = () => {
         bookingId: bookingId,
       };
 
-      fetch("http://localhost:8080/api/booking/cancel", {
+      fetch(API_BASE_URL + "/api/booking/cancel", {
         method: "DELETE",
         headers: {
           Accept: "application/json",
@@ -173,7 +174,7 @@ const MyBooking = () => {
                       <td>
                         <img
                           src={
-                            "http://localhost:8080/api/variant/" +
+                            API_BASE_URL + "/api/variant/" +
                             booking.variant.image
                           }
                           class="img-fluid"

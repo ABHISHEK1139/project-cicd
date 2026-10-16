@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import creditcard from "../images/credit-card.png";
 import { ToastContainer, toast } from "react-toastify";
+import { API_BASE_URL } from "../api/baseUrl";
 
 const BookingPayment = () => {
   const location = useLocation();
@@ -29,7 +30,7 @@ const BookingPayment = () => {
   };
 
   const payAndConfirmBooking = (e) => {
-    fetch("http://localhost:8080/api/booking/customer/payment", {
+    fetch(API_BASE_URL + "/api/booking/customer/payment", {
       method: "PUT",
       headers: {
         Accept: "application/json",

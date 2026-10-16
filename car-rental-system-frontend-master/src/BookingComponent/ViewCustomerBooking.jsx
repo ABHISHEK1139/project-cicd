@@ -3,6 +3,7 @@ import axios from "axios";
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
+import { API_BASE_URL } from "../api/baseUrl";
 
 const ViewCustomerBooking = () => {
   const location = useLocation();
@@ -27,7 +28,7 @@ const ViewCustomerBooking = () => {
         <div class="col-sm-4 mt-2">
           <div class="card form-card custom-bg">
             <img
-              src={"http://localhost:8080/api/variant/" + booking.variant.image}
+              src={API_BASE_URL + "/api/variant/" + booking.variant.image}
               className="card-img-top rounded img-fluid"
               alt="variant img"
             />
@@ -244,7 +245,7 @@ const ViewCustomerBooking = () => {
                       <div class="d-flex aligns-items-center justify-content-center mt-3">
                         <img
                           src={
-                            "http://localhost:8080/api/user/" +
+                            API_BASE_URL + "/api/user/" +
                             booking.customer.license.licensePic
                           }
                           className="card-img-top rounded img-fluid"

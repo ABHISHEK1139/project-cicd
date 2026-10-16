@@ -4,6 +4,7 @@ import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
+import { API_BASE_URL } from "../api/baseUrl";
 
 const AllBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -33,14 +34,14 @@ const AllBookings = () => {
 
   const retrieveAllBookings = async () => {
     const response = await axios.get(
-      "http://localhost:8080/api/booking/fetch/all"
+      API_BASE_URL + "/api/booking/fetch/all"
     );
     return response.data;
   };
 
   const retrieveVehiclesByVariant = async () => {
     const response = await axios.get(
-      "http://localhost:8080/api/vehicle/fetch/variant-wise?variantId=" +
+      API_BASE_URL + "/api/vehicle/fetch/variant-wise?variantId=" +
         variantId
     );
     return response.data;
@@ -111,7 +112,7 @@ const AllBookings = () => {
 
       console.log(data);
 
-      fetch("http://localhost:8080/api/booking/update/assign/vehicle", {
+      fetch(API_BASE_URL + "/api/booking/update/assign/vehicle", {
         method: "PUT",
         headers: {
           Accept: "application/json",
@@ -224,7 +225,7 @@ const AllBookings = () => {
                       <td>
                         <img
                           src={
-                            "http://localhost:8080/api/variant/" +
+                            API_BASE_URL + "/api/variant/" +
                             booking.variant.image
                           }
                           class="img-fluid"

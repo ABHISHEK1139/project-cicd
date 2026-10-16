@@ -77,4 +77,15 @@ public class GlobalExceptionHandler {
 
 	}
 
+	@ExceptionHandler(InvalidFileUploadException.class)
+	public ResponseEntity<CommonApiResponse> handleInvalidFileUploadException(InvalidFileUploadException ex) {
+		String responseMessage = ex.getMessage();
+
+		CommonApiResponse apiResponse = new CommonApiResponse();
+		apiResponse.setResponseMessage(responseMessage);
+		apiResponse.setSuccess(false);
+		return new ResponseEntity<CommonApiResponse>(apiResponse, HttpStatus.BAD_REQUEST);
+
+	}
+
 }

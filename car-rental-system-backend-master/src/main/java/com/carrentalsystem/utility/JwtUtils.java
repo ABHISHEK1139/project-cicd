@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -19,7 +20,12 @@ import io.jsonwebtoken.security.Keys;
 public class JwtUtils {
 
 
-    public static final String SECRET = "5aB3r1P8mNqRvKgY7cZxW9jF2hT6fU0eL4dS1aC3bXwVzE6tR8yH0jM5nQ8pZ2k";
+    /**
+     * JWT signing secret (Base64-encoded). Provided via the JWT_SECRET
+     * environment variable. The application fails to start if it is unset.
+     */
+    @Value("${JWT_SECRET}")
+    private String secret;
 
 
     public String extractUsername(String token) {
@@ -69,7 +75,7 @@ public class JwtUtils {
     }
 
     private Key getSignKey() {
-        byte[] keyBytes= Decoders.BASE64.decode(SECRET);
+        byte[] keyBytes= Decoders.BASE64.decode(secret);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

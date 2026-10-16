@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.carrentalsystem.filter.JwtAuthFilter;
+import com.carrentalsystem.utility.Constants.UserRole;
 
 @Configuration
 @EnableWebSecurity
@@ -38,37 +40,25 @@ public class SecurityConfig {
 
 		http.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
 
-	 // NOTE: We have not secured the any APIs here
-		// but definitely we can add api url below with the role to secure the APIs
-		
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/user/login", "/api/user/register").permitAll()
-//
-//						// this APIs are only accessible by ADMIN
-//						.requestMatchers("/api/user/admin/register", "/api/user/delete/seller", "/api/order/fetch/all",
-//								"/api/category/update", "/api/category/add", "/api/category/delete",
-//								"/api/user/fetch/role-wise", "/api/user/update/status")
-//						.hasAuthority(UserRole.ROLE_ADMIN.value())
-//
-//						// this APIs are only accessible by SELLER
-//						.requestMatchers("/api/user/fetch/seller/delivery-person", "/api/user/delete/seller/delivery-person", "/api/product/update/image",
-//								"/api/product/update/detail", "/api/product/add", "/api/product/delete",
-//								"/api/order/assign/delivery-person", "/api/order/fetch/seller-wise",
-//								"/api/product/review/seller")
-//						.hasAuthority(UserRole.ROLE_CUSTOMER.value())
-//
-//						// this APIs are only accessible by SELLER
-//						.requestMatchers("/api/order/update/delivery-status", "/api/order/fetch/delivery-wise")
-//						.hasAuthority(UserRole.ROLE_DELIVERY.value())
-//
-//						// this APIs are only accessible by SELLER
-//						.requestMatchers("/api/order/add", "/api/order/fetch/user-wise", "/api/cart/update",
-//								"/api/cart/add", "/api/cart/fetch", "/api/cart/delete", "/api/product/review/add")
-//						.hasAuthority(UserRole.ROLE_CUSTOMER.value())
-//
-//						// this APIs are only accessible by ADMIN & SELLER
-//						.requestMatchers("/api/user/fetch/role-wise", "/api/user/update/status")
-//						.hasAnyAuthority(UserRole.ROLE_ADMIN.value())
+				// Public endpoints: login, customer self-registration, and read-only
+				// browsing (variant/company fetches and stored-image downloads)
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers("/api/user/login", "/api/user/register").permitAll()
+						.requestMatchers(HttpMethod.GET, "/api/variant/fetch/**", "/api/variant/search",
+								"/api/company/fetch/**", "/api/variant/*", "/api/user/*")
+						.permitAll()
 
+						// Admin self-registration and user management require an existing
+						// admin's JWT (anonymous callers get 403)
+						.requestMatchers("/api/user/admin/register", "/api/user/fetch/role-wise",
+								"/api/user/update/status", "/api/user/delete/**")
+						.hasAuthority(UserRole.ROLE_ADMIN.value())
+
+						// NOTE: the remaining APIs stay open for now. Requiring
+						// authentication for them needs the frontend to send the JWT on
+						// every request (currently every Authorization header is
+						// commented out), so that change is deliberately out of scope
+						// here to avoid breaking the working UI.
 						.anyRequest().permitAll())
 
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

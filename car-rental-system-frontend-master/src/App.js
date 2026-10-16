@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import Header from "./NavbarComponent/Header";
-import AdminRegisterForm from "./UserComponent/AdminRegisterForm";
 import UserLoginForm from "./UserComponent/UserLoginForm";
 import UserRegister from "./UserComponent/UserRegister";
 import AboutUs from "./PageComponent/AboutUs";
@@ -27,7 +26,6 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/user/admin/register" element={<AdminRegisterForm />} />
         <Route path="/user/login" element={<UserLoginForm />} />
         <Route path="/user/customer/register" element={<UserRegister />} />
         <Route path="/aboutus" element={<AboutUs />} />

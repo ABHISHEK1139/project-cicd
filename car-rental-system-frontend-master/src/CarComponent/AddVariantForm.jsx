@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../api/baseUrl";
 
 const AddVariantForm = () => {
   const [companies, setCompanies] = useState([]);
@@ -12,14 +13,14 @@ const AddVariantForm = () => {
 
   const retrieveAllCompany = async () => {
     const response = await axios.get(
-      "http://localhost:8080/api/company/fetch/all"
+      API_BASE_URL + "/api/company/fetch/all"
     );
     return response.data;
   };
 
   const retrieveFuelTypes = async () => {
     const response = await axios.get(
-      "http://localhost:8080/api/car/rental/helper/fetch/fuel-type"
+      API_BASE_URL + "/api/car/rental/helper/fetch/fuel-type"
     );
     return response.data;
   };
@@ -91,7 +92,7 @@ const AddVariantForm = () => {
 
     axios
       .post(
-        "http://localhost:8080/api/variant/add",
+        API_BASE_URL + "/api/variant/add",
         formData
         // , {
         //   headers: {
